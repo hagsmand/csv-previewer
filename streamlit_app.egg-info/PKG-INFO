@@ -1,0 +1,8 @@
+Metadata-Version: 2.2
+Name: streamlit-app
+Version: 0.1.0
+Summary: Streamlit application
+Requires-Dist: matplotlib>=3.10.1
+Requires-Dist: plotly>=6.0.0
+Requires-Dist: streamlit>=1.42.2
+Requires-Dist: transformers>=4.49.0
