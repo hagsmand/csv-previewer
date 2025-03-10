@@ -47,6 +47,30 @@ if uploaded_file:
         st.dataframe(df[numeric_columns].describe())
     else:
         st.warning("No numeric columns found for statistics.")
+        
+    # Add single column duplicate analysis
+    st.subheader("🔍 Single Column Duplicate Analysis")
+    selected_column = st.selectbox("Select column to analyze duplicates", df.columns)
+    
+    # Calculate duplicates
+    duplicate_counts = df[selected_column].value_counts()
+    duplicates = duplicate_counts[duplicate_counts > 1]
+    
+    if not duplicates.empty:
+        st.write(f"Found {len(duplicates)} values that appear multiple times:")
+        
+        # Create a DataFrame showing duplicate values and their counts
+        duplicate_df = pd.DataFrame({
+            'Value': duplicates.index,
+            'Count': duplicates.values
+        })
+        st.dataframe(duplicate_df)
+        
+        # Show total number of duplicate rows
+        total_duplicates = sum(duplicates.values) - len(duplicates)
+        st.metric("Total Duplicate Rows", total_duplicates)
+    else:
+        st.success("No duplicate values found in this column!")
     
     # File comparison section
     if uploaded_file2:
